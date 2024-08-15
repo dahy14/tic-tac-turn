@@ -63,7 +63,7 @@ function TicTacToe() {
 
   return (
     <>
-      <h1 className="text-4xl font-bold uppercase"> Tic Tac Toe </h1>
+      <h1 className="text-4xl text-white font-bold uppercase"> Tic Tac Toe </h1>
 
       {/* creates the board */}
       <div className="grid grid-cols-3 grid-rows-3">
@@ -82,7 +82,7 @@ function TicTacToe() {
         })}
       </div>
 
-      <h2 className={`text-base ${winner === null ? "hidden" : ""}`}>
+      <h2 className={`text-4xl font-bold text-green-400 ${winner === null ? "hidden" : ""}`}>
         {" "}
         Winner is {winner}
       </h2>
