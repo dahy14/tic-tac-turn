@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import ResetButton from "./ResetButton";
 import Tile from "./Tile";
-
+import jyp from "./1.jfif"
 function TicTacToe() {
   const [tile, setTile] = useState(Array(9).fill(null));
   const [player, setPlayer] = useState("X");
@@ -85,6 +85,7 @@ function TicTacToe() {
       <h2 className={`text-4xl font-bold text-green-400 ${winner === null ? "hidden" : ""}`}>
         {" "}
         Winner is {winner}
+        <img src={jyp} alt="JYP" />
       </h2>
 
       <ResetButton resetClick={handleResetClick} />
