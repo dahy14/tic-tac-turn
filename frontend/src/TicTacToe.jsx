@@ -5,6 +5,7 @@ import Tile from "./Tile";
 import TwistButton from "./TwistButton";
 import { useTTT } from "./Logic/useTTT";
 import { usePosition } from "./Logic/usePos";
+
 import { useMainHook } from "./Logic/useMainHook";
 
 function TicTacToe() {
@@ -23,7 +24,7 @@ function TicTacToe() {
     <>
       <h1 className="text-4xl text-white font-bold uppercase ">Tic Tac Turn</h1>
       {/* creates the board */}
-      <div className="grid grid-cols-3 grid-rows-3 gap-0">
+      <div className="grid grid-cols-3 grid-rows-3 relative ">
         {tile.map((tileValue, index) => {
           return (
             <Tile

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useTTT } from "./useTTT";
 
 export function useMainHook({
@@ -17,23 +17,42 @@ export function useMainHook({
   setX,
   setY,
 }) {
+  const xRef = useRef(x);
+  const yRef = useRef(y);
+  const tileRef = useRef(tile);
+
+  useEffect(() => {
+    console.log("tileRef: ", tileRef.current, "tile: ", tile);
+  }, [tileRef.current, tile]);
   const handleTileClick = (idx) => {
     // alternative click
     if (twistToggle) {
       const validIdx = [4, 5, 7, 8];
       const newTile = [...tile];
+
       const newX = [...x];
       const newY = [...y];
       validIdx.forEach((id) => {
         if (id === idx) {
-          newTile[id] = tile[id - 3];
-          newTile[id - 3] = tile[id - 4];
-          newTile[id - 4] = tile[id - 1];
-          newTile[id - 1] = tile[id];
+          setTile(newTile);
+          tileRef.current[id] = newTile[id - 3];
+          tileRef.current[id - 3] = newTile[id - 4];
+          tileRef.current[id - 4] = newTile[id - 1];
+          tileRef.current[id - 1] = newTile[id];
+          // framer motion animation values for translating tiles
+          xRef.current[id] = x[id] - 48;
+          yRef.current[id - 1] = y[id - 1] - 48;
+          yRef.current[id - 3] = y[id - 3] + 48;
+          xRef.current[id - 4] = x[id - 4] + 48;
+          // console.log("newX: ", newX);
+          // console.log("newY: ", newY);
+
+          // correct indexing of rotated
         }
       });
-      setTile(newTile);
-      checkWinner(newTile);
+
+      setX(xRef.current);
+      setY(yRef.current);
       setTwistToggle(false);
     } else {
       // Main Click
@@ -43,10 +62,11 @@ export function useMainHook({
       // never break these 4 in order
       const newTile = [...tile];
       newTile[idx] = player;
-      setTile(newTile);
-      checkWinner(newTile);
-    }
 
+      setTile(newTile);
+      tileRef.current = newTile;
+    }
+    checkWinner(tileRef.current);
     if (player === "X") {
       setPlayer("O");
     } else {
@@ -76,7 +96,7 @@ export function useMainHook({
         newTile[x] === newTile[y] &&
         newTile[x] === newTile[z]
       ) {
-        setWinner(player);
+        setWinner(newTile[x]);
         setWinningBlock(combination);
       }
     });
@@ -96,6 +116,8 @@ export function useMainHook({
     setPlayer("X");
     setWinner(null);
     setWinningBlock(Array(3).fill(null));
+    setX(Array(9).fill(0));
+    setY(Array(9).fill(0));
   };
 
   return {
