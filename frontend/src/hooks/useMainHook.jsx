@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import { useTTT } from "./useTTT";
 
 export function useMainHook({
   tile,

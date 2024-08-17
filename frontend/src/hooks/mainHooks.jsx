@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 
 export function usePlayer() {
   const [player, setPlayer] = useState("X");
+
   const [winner, setWinner] = useState(null);
   const playerRef = useRef("X");
 
@@ -26,5 +27,28 @@ export function usePosition() {
     setY,
     xRef,
     yRef,
+  };
+}
+
+export function useTwistState() {
+  const [twistToggle, setTwistToggle] = useState(false);
+  return {
+    twistToggle,
+    setTwistToggle,
+  };
+}
+
+export function useTile() {
+  const [tile, setTile] = useState(Array(9).fill(null));
+  const tileRef = useRef(tile);
+
+  const [winningBlock, setWinningBlock] = useState(Array(3).fill(null));
+
+  return {
+    tile,
+    setTile,
+    tileRef,
+    winningBlock,
+    setWinningBlock,
   };
 }

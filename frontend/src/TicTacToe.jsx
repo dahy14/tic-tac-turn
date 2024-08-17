@@ -1,24 +1,45 @@
-import { useState, useEffect } from "react";
 import ResetButton from "./ResetButton";
 import Tile from "./Tile";
-
 import TwistButton from "./TwistButton";
-import { useTTT } from "./Logic/useTTT";
-import { usePosition } from "./Logic/usePos";
 
-import { useMainHook } from "./Logic/useMainHook";
+import { ResetClick } from "./handler/resetClick";
+import { TwistClick } from "./handler/twistClick";
+import { TileClick } from "./handler/tileClick";
+import {
+  usePlayer,
+  usePosition,
+  useTile,
+  useTwistState,
+} from "./hooks/mainHooks";
+import { useEffect } from "react";
+import { checkWinner } from "./handler/checkWinner";
 
 function TicTacToe() {
-  // states
-  const stateHooks = useTTT();
-  const pos = usePosition();
-  const { tile, winner, twistToggle, winningBlock } = stateHooks;
-  const { x, y } = pos;
-  // click handlers
-  const { handleTileClick, handleTwistClick, handleResetClick } = useMainHook({
-    ...stateHooks,
-    ...pos,
+  const playerState = usePlayer();
+  const posState = usePosition();
+  const tileState = useTile();
+  const twistState = useTwistState();
+
+  const { x, y } = posState;
+  const { tile, tileRef, winningBlock } = tileState;
+  const { twistToggle } = twistState;
+  const { player, winner, playerRef } = playerState;
+
+  const { handleResetClick } = ResetClick({
+    ...tileState,
+    ...playerState,
+    ...posState,
+    ...twistState,
   });
+  const { handleTwistClick } = TwistClick({ ...twistState });
+  const { handleTileClick } = TileClick({ ...tileState, ...playerState });
+
+  checkWinner({ ...tileState, ...playerState });
+
+  useEffect(() => {
+    console.log("tileRef: ", tileRef.current);
+    console.log("playerRef: ", playerRef.current);
+  }, [tileRef.current, playerRef.current]);
 
   return (
     <>
