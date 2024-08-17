@@ -7,9 +7,10 @@ export function TileClick({
   setPlayer,
   winner,
   setWinner,
+  twistToggle,
 }) {
   const handleTileClick = (idx) => {
-    if (tileRef.current[idx] || winner) {
+    if (tileRef.current[idx] || winner || twistToggle) {
       return;
     }
 

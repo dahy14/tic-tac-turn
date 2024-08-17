@@ -8,6 +8,8 @@ export function ResetClick({
   setY,
   tileRef,
   playerRef,
+  xRef,
+  yRef,
 }) {
   const handleResetClick = () => {
     setTile(Array(9).fill(null));
@@ -17,8 +19,12 @@ export function ResetClick({
     setX(Array(9).fill(0));
     setY(Array(9).fill(0));
     setTwistToggle(false);
+    setX(Array(9).fill(0));
+    setY(Array(9).fill(0));
     tileRef.current = Array(9).fill(null);
     playerRef.current = "X";
+    xRef.current = Array(9).fill(0);
+    yRef.current = Array(9).fill(0);
   };
   return {
     handleResetClick,

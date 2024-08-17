@@ -18,8 +18,8 @@ export function usePlayer() {
 export function usePosition() {
   const [x, setX] = useState(Array(9).fill(0));
   const [y, setY] = useState(Array(9).fill(0));
-  const xRef = useRef(x);
-  const yRef = useRef(y);
+  const xRef = useRef(Array(9).fill(0));
+  const yRef = useRef(Array(9).fill(0));
   return {
     x,
     setX,
