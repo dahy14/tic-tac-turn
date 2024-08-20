@@ -8,23 +8,40 @@ export function ResetClick({
   setY,
   tileRef,
   playerRef,
-  xRef,
-  yRef,
+  setTilePtr,
 }) {
   const handleResetClick = () => {
     setTile(Array(9).fill(null));
     setPlayer("X");
     setWinner(null);
     setWinningBlock(Array(3).fill(null));
-    setX(Array(9).fill(0));
-    setY(Array(9).fill(0));
+    setX([
+      "0rem",
+      "3rem",
+      "6rem",
+      "0rem",
+      "3rem",
+      "6rem",
+      "0rem",
+      "3rem",
+      "6rem",
+    ]);
+    setY([
+      "0rem",
+      "0rem",
+      "0rem",
+      "3rem",
+      "3rem",
+      "3rem",
+      "6rem",
+      "6rem",
+      "6rem",
+    ]);
     setTwistToggle(false);
-    setX(Array(9).fill(0));
-    setY(Array(9).fill(0));
+
     tileRef.current = Array(9).fill(null);
     playerRef.current = "X";
-    xRef.current = Array(9).fill(0);
-    yRef.current = Array(9).fill(0);
+    setTilePtr([0, 1, 2, 3, 4, 5, 6, 7, 8]);
   };
   return {
     handleResetClick,

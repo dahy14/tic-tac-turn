@@ -20,7 +20,7 @@ function TicTacToe() {
   const tileState = useTile();
   const twistState = useTwistState();
 
-  const { x, y, xRef, yRef } = posState;
+  const { x, y, setX, setY } = posState;
   const { tile, tileRef, winningBlock } = tileState;
   const { twistToggle } = twistState;
   const { player, winner, playerRef } = playerState;
@@ -46,39 +46,43 @@ function TicTacToe() {
     ...posState,
     ...playerState,
   });
-
+  //initPosition({ ...posState });
   checkWinner({ ...tileState, ...playerState });
+  const xInit = [...x];
+  const yInit = [...y];
 
   useEffect(() => {
-    console.log("tileRef: ", tileRef.current);
-    console.log("xRef: ", xRef.current);
-    console.log("yRef: ", yRef.current);
-  }, [tileRef.current, xRef.current, yRef.current]);
+    console.log("tile ref", tileRef.current);
+  });
 
   return (
     <>
-      <h1 className="text-4xl text-white font-bold uppercase ">Tic Tac Turn</h1>
+      <h1 className="text-4xl text-white font-bold uppercase  ">
+        Tic Tac Turn
+      </h1>
       {/* creates the board */}
-      <div className="grid grid-cols-3 grid-rows-3 relative ">
+      <div className=" min-w-36 min-h-36 relative">
         {tile.map((tileValue, index) => {
           return (
             <Tile
-              textVal={tileValue}
-              idx={index}
-              key={index}
+              textVal={tileValue} // X or O
+              idx={index} // 0-8
+              key={index} // 0-8
               tileClick={twistToggle ? handleAlterClick : handleTileClick}
               winningBlock={
                 tileValue && winningBlock.includes(index) ? true : false
-              }
-              x={x[index]}
-              y={y[index]}
+              } // winning block
+              x={x[index]} // x position
+              y={y[index]} // y position
+              xInit={xInit[index]} // initial x position
+              yInit={yInit[index]} // initial y position
             />
           );
         })}
       </div>
       <h2
-        className={`text-4xl font-bold text-green-400 ${
-          winner === null ? "hidden" : ""
+        className={`text-2xl font-bold text-green-400 transition-all duration-700 ${
+          winner === null ? "opacity-0" : "opacity-100"
         }`}
       >
         Winner is {winner}

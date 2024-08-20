@@ -1,4 +1,10 @@
-export function checkWinner({ tileRef, winner, setWinner, setWinningBlock }) {
+export function checkWinner({
+  tilePtr,
+  tileRef,
+  winner,
+  setWinner,
+  setWinningBlock,
+}) {
   if (winner) return;
   const allWinningCombination = [
     // horizontal
@@ -21,8 +27,11 @@ export function checkWinner({ tileRef, winner, setWinner, setWinningBlock }) {
       tileRef.current[x] === tileRef.current[y] &&
       tileRef.current[x] === tileRef.current[z]
     ) {
-      setWinner(tileRef.current[x]);
-      setWinningBlock(combination);
+      setWinner("...");
+      setTimeout(() => {
+        setWinner(tileRef.current[x]);
+        setWinningBlock(combination);
+      }, 800);
     }
   });
 }

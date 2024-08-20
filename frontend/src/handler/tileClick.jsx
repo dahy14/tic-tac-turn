@@ -1,5 +1,6 @@
 export function TileClick({
   tile,
+  tilePtr,
   setTile,
   tileRef,
   player,
@@ -13,8 +14,9 @@ export function TileClick({
     if (tileRef.current[idx] || winner || twistToggle) {
       return;
     }
+    console.log("ptr");
+    tileRef.current[[idx]] = playerRef.current;
 
-    tileRef.current[idx] = playerRef.current;
     setTile(tileRef.current);
 
     if (playerRef.current === "X") {

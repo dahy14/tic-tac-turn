@@ -1,35 +1,72 @@
 export function AlterClick({
   x,
   y,
-  xRef,
-  yRef,
   setX,
   setY,
   tile,
+  tilePtr,
+  setTilePtr,
   tileRef,
-  setTile,
   setTwistToggle,
   playerRef,
   setPlayer,
+  winner,
 }) {
   const handleAlterClick = (idx) => {
-    const validIdx = [4, 5, 7, 8];
+    if (winner) return;
+
+    // create a tile copy
+    const newTile = [...tileRef.current];
+    const newPtr = [...tilePtr];
+    const validTile = [4, 5, 7, 8];
+
     const newX = [...x];
     const newY = [...y];
 
-    validIdx.forEach((id) => {
-      if (id == idx) {
-        newX[id] = x[id] - 48;
-        newY[id - 1] = y[id - 1] - 48;
-        newY[id - 3] = y[id - 3] + 48;
-        newX[id - 4] = x[id - 4] + 48;
-      }
+    const bottomRightPtr = newPtr[idx];
+    const bottomLeftPtr = newPtr[idx - 1];
+
+    const topLeftPtr = newPtr[idx - 4];
+    const topRightPtr = newPtr[idx - 3];
+
+    // twist the tiles
+    if (validTile.includes(idx)) {
+      newX[bottomRightPtr] = x[bottomLeftPtr];
+      newY[bottomRightPtr] = y[bottomLeftPtr];
+
+      newX[bottomLeftPtr] = x[topLeftPtr];
+      newY[bottomLeftPtr] = y[topLeftPtr];
+
+      newX[topLeftPtr] = x[topRightPtr];
+      newY[topLeftPtr] = y[topRightPtr];
+
+      newX[topRightPtr] = x[bottomRightPtr];
+      newY[topRightPtr] = y[bottomRightPtr];
 
       setX(newX);
       setY(newY);
-    });
+    }
 
-    setTwistToggle(false);
+    // after the twisting, handle correct tile values
+    if (validTile.includes(idx)) {
+      newTile[idx] = tileRef.current[idx - 3];
+      newTile[idx - 1] = tileRef.current[idx];
+      newTile[idx - 3] = tileRef.current[idx - 4];
+      newTile[idx - 4] = tileRef.current[idx - 1];
+
+      tileRef.current = newTile;
+    }
+
+    // then, handle the tile pointer
+    if (validTile.includes(idx)) {
+      newPtr[idx] = tilePtr[idx - 3];
+      newPtr[idx - 1] = tilePtr[idx];
+      newPtr[idx - 3] = tilePtr[idx - 4];
+      newPtr[idx - 4] = tilePtr[idx - 1];
+      console.log("newPtr", newPtr);
+      setTilePtr(newPtr);
+    }
+
     if (playerRef.current === "X") {
       playerRef.current = "O";
       setPlayer("O");
@@ -37,6 +74,7 @@ export function AlterClick({
       playerRef.current = "X";
       setPlayer("X");
     }
+    // setTwistToggle(false);
   };
   return {
     handleAlterClick,

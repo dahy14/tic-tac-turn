@@ -16,22 +16,41 @@ export function usePlayer() {
 }
 
 export function usePosition() {
-  const [x, setX] = useState(Array(9).fill(0));
-  const [y, setY] = useState(Array(9).fill(0));
-  const xRef = useRef(Array(9).fill(0));
-  const yRef = useRef(Array(9).fill(0));
+  const [x, setX] = useState([
+    "0rem",
+    "3rem",
+    "6rem",
+    "0rem",
+    "3rem",
+    "6rem",
+    "0rem",
+    "3rem",
+    "6rem",
+  ]);
+  const [y, setY] = useState([
+    "0rem",
+    "0rem",
+    "0rem",
+    "3rem",
+    "3rem",
+    "3rem",
+    "6rem",
+    "6rem",
+    "6rem",
+  ]);
+  const [init, setInit] = useState(true);
   return {
     x,
     setX,
     y,
     setY,
-    xRef,
-    yRef,
+    init,
+    setInit,
   };
 }
 
 export function useTwistState() {
-  const [twistToggle, setTwistToggle] = useState(false);
+  const [twistToggle, setTwistToggle] = useState(true);
   return {
     twistToggle,
     setTwistToggle,
@@ -39,7 +58,20 @@ export function useTwistState() {
 }
 
 export function useTile() {
-  const [tile, setTile] = useState(Array(9).fill(null));
+  //const [tile, setTile] = useState(Array(9).fill(null));
+
+  const [tile, setTile] = useState([
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+  ]);
+  const [tilePtr, setTilePtr] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8]);
   const tileRef = useRef(tile);
 
   const [winningBlock, setWinningBlock] = useState(Array(3).fill(null));
@@ -47,6 +79,8 @@ export function useTile() {
   return {
     tile,
     setTile,
+    tilePtr,
+    setTilePtr,
     tileRef,
     winningBlock,
     setWinningBlock,

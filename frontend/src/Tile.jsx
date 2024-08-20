@@ -1,27 +1,43 @@
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 
-function Tile({ textVal, idx, tileClick, winningBlock, x, y }) {
+function Tile({
+  textVal,
+  idx,
+  pos,
+  tileClick,
+  winningBlock,
+  x,
+  y,
+  xInit,
+  yInit,
+}) {
   return (
-    <div className="min-w-12 min-h-12 font-bold text-4xl text-violet-700">
-      <span
-        className={`absolute min-w-12 min-h-12 bg-transparent border border-yellow-600 cursor-pointer z-0  ${
+    <>
+      {/* <div className="min-w-12 min-h-12 font-bold text-4xl text-violet-700 "> */}
+      <motion.span
+        id={idx}
+        initial={{ x: xInit, y: yInit }}
+        className={`absolute min-w-12 min-h-12  z-0  ${
           winningBlock ? "bg-yellow-300" : "bg-yellow-100"
         }`}
-        id={idx}
-      ></span>
+      ></motion.span>
 
       <motion.div
-        className={`absolute w-12 h-12 flex justify-center items-center  z-10`}
-        animate={{ x, y }} // one block is 48 * 48
+        className={`absolute w-12 h-12 flex justify-center items-center font-bold text-4xl text-violet-700 border border-yellow-600  z-10 `}
+        // initial={{ x: xInit, y: yInit }}
+        animate={{ x: x, y: y }} // one block is 48 * 48
         transition={{ type: "spring" }}
       >
         {textVal}
       </motion.div>
-      <span
+      <motion.span
         className={`absolute min-w-12 min-h-12 bg-transparent cursor-pointer z-20 `}
+        initial={{ x: xInit, y: yInit }}
         onClick={() => tileClick(idx)}
-      ></span>
-    </div>
+      ></motion.span>
+      {/* </div> */}
+    </>
   );
 }
 
