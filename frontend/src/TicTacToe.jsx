@@ -11,7 +11,7 @@ import {
   useTile,
   useTwistState,
 } from "./hooks/mainHooks";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { checkWinner } from "./handler/checkWinner";
 
 function TicTacToe() {
@@ -21,7 +21,7 @@ function TicTacToe() {
   const twistState = useTwistState();
 
   const { x, y, setX, setY } = posState;
-  const { tile, tileRef, winningBlock } = tileState;
+  const { tile, tile2, tileRef, winningBlock } = tileState;
   const { twistToggle } = twistState;
   const { player, winner, playerRef } = playerState;
 
@@ -51,15 +51,9 @@ function TicTacToe() {
   const xInit = [...x];
   const yInit = [...y];
 
-  useEffect(() => {
-    console.log("tile ref", tileRef.current);
-  });
-
   return (
     <>
-      <h1 className="text-4xl text-white font-bold uppercase  ">
-        Tic Tac Turn
-      </h1>
+      <h1 className="text-4xl text-white font-bold uppercase">Tic Tac Turn</h1>
       {/* creates the board */}
       <div className=" min-w-36 min-h-36 relative">
         {tile.map((tileValue, index) => {
@@ -92,6 +86,10 @@ function TicTacToe() {
         <TwistButton toggle={twistToggle} twistClick={handleTwistClick} />
         <ResetButton resetClick={handleResetClick} />
       </div>
+
+      <h2 className={`text-2xl font-bold text-violet-300`}>
+        It's {player}'s turn
+      </h2>
     </>
   );
 }

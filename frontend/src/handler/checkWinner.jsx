@@ -30,6 +30,7 @@ export function checkWinner({
       setWinner("...");
       setTimeout(() => {
         setWinner(tileRef.current[x]);
+        console.log("combination", combination);
         setWinningBlock(combination);
       }, 800);
     }

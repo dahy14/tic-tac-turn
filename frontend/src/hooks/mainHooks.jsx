@@ -50,7 +50,7 @@ export function usePosition() {
 }
 
 export function useTwistState() {
-  const [twistToggle, setTwistToggle] = useState(true);
+  const [twistToggle, setTwistToggle] = useState(false);
   return {
     twistToggle,
     setTwistToggle,
@@ -58,19 +58,19 @@ export function useTwistState() {
 }
 
 export function useTile() {
-  //const [tile, setTile] = useState(Array(9).fill(null));
+  const [tile, setTile] = useState(Array(9).fill(null));
 
-  const [tile, setTile] = useState([
-    "0",
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-  ]);
+  // const [tile, setTile] = useState([
+  //   "0",
+  //   "0",
+  //   "2",
+  //   "3",
+  //   "4",
+  //   "5",
+  //   "6",
+  //   "7",
+  //   "8",
+  // ]);
   const [tilePtr, setTilePtr] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8]);
   const tileRef = useRef(tile);
 

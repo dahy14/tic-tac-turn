@@ -29,6 +29,8 @@ export function AlterClick({
     const topLeftPtr = newPtr[idx - 4];
     const topRightPtr = newPtr[idx - 3];
 
+    if (!validTile.includes(idx)) return;
+
     // twist the tiles
     if (validTile.includes(idx)) {
       newX[bottomRightPtr] = x[bottomLeftPtr];
@@ -74,7 +76,7 @@ export function AlterClick({
       playerRef.current = "X";
       setPlayer("X");
     }
-    // setTwistToggle(false);
+    setTwistToggle(false);
   };
   return {
     handleAlterClick,

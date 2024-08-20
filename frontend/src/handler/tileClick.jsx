@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 export function TileClick({
   tile,
   tilePtr,
@@ -11,13 +13,21 @@ export function TileClick({
   twistToggle,
 }) {
   const handleTileClick = (idx) => {
-    if (tileRef.current[idx] || winner || twistToggle) {
+    const newTile = [...tile];
+    if (newTile[tilePtr[idx]] || winner || twistToggle) {
       return;
     }
-    console.log("ptr");
-    tileRef.current[[idx]] = playerRef.current;
 
-    setTile(tileRef.current);
+    console.log("newTile", newTile);
+    newTile[tilePtr[idx]] = playerRef.current;
+
+    newTile.map((tile, i) => {
+      tile = newTile[tilePtr[i]];
+
+      tileRef.current[i] = tile;
+    });
+
+    setTile(newTile);
 
     if (playerRef.current === "X") {
       playerRef.current = "O";
