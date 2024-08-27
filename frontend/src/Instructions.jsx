@@ -13,10 +13,17 @@ function Instructions({ isShown, handleClose }) {
           diagonal to win.
         </p>
         <p>2. Click on a square to place your mark.</p>
-        <p>3. The game will alternate between X and O. Good luck!</p>
+        <p>3. The game will alternate between X and O.</p>
+        <p>4. The twist is... a twist</p>
+        <p className="text-right">goodluck,</p>
+        <p className="text-right">-naypes</p>
       </div>
 
-      <img className="max-w-screen-sm" src={twistImage} alt="Twist" />
+      <img
+        className={`max-w-screen-sm ${isShown ? "" : "hidden"}`}
+        src={twistImage}
+        alt="Twist"
+      />
       <span
         className="bg-red-500 w-fit h-fit text-center p-3 cursor-pointer text-amber-900 font-bold border rounded-md border-0"
         onClick={handleClose}

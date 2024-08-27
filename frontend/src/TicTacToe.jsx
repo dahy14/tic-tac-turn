@@ -1,18 +1,16 @@
 import ResetButton from "./ResetButton";
 import Tile from "./Tile";
 import TwistButton from "./TwistButton";
-
 import { ResetClick } from "./handler/resetClick";
 import { TwistButtonClick, AlterClick } from "./handler/twistClick";
 import { TileClick } from "./handler/tileClick";
+import { checkWinner } from "./handler/checkWinner";
 import {
   usePlayer,
   usePosition,
   useTile,
   useTwistState,
 } from "./hooks/mainHooks";
-import { useEffect, useRef } from "react";
-import { checkWinner } from "./handler/checkWinner";
 
 function TicTacToe() {
   const playerState = usePlayer();
@@ -20,10 +18,10 @@ function TicTacToe() {
   const tileState = useTile();
   const twistState = useTwistState();
 
-  const { x, y, setX, setY } = posState;
-  const { tile, tile2, tileRef, winningBlock } = tileState;
+  const { x, y } = posState;
+  const { tile, winningBlock } = tileState;
   const { twistToggle } = twistState;
-  const { player, winner, playerRef } = playerState;
+  const { player, winner } = playerState;
 
   const { handleResetClick } = ResetClick({
     ...tileState,
@@ -54,8 +52,9 @@ function TicTacToe() {
   return (
     <>
       <h1 className="text-4xl text-white font-bold uppercase">Tic Tac Turn</h1>
+      <h1 className="hidden"> Made By John Louis Naypes</h1>
       {/* creates the board */}
-      <div className=" min-w-36 min-h-36 relative">
+      <div className="min-w-36 min-h-36 relative">
         {tile.map((tileValue, index) => {
           return (
             <Tile
@@ -63,9 +62,7 @@ function TicTacToe() {
               idx={index} // 0-8
               key={index} // 0-8
               tileClick={twistToggle ? handleAlterClick : handleTileClick}
-              winningBlock={
-                tileValue && winningBlock.includes(index) ? true : false
-              } // winning block
+              winningBlock={winningBlock.includes(index) ? true : false} // winning block
               x={x[index]} // x position
               y={y[index]} // y position
               xInit={xInit[index]} // initial x position
